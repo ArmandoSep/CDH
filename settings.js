@@ -127,7 +127,7 @@ $(document).ready(function () {
             if (wraps){
                 $("#jv_wraps").prop('checked', true);
             }
-            if (STR) 
+            if (STR) {
                 $("#jv_str").prop('checked', true);
             }
             if (MTR){
@@ -172,7 +172,7 @@ $(document).ready(function () {
                 $("#tc_fee_input").val(tc_fee);
                 $('#tc_fee').addClass("text-input--show");
             }
-        }
+          }
     
         // Set ee and at in form
         $("#at").val(auth_token);
