@@ -124,6 +124,21 @@ $(document).ready(function () {
             if (min_cashflow){
                 $("#min_cashflow").val(min_cashflow);
             }
+            if (wraps){
+                $("#jv_wraps").prop('checked', true);
+            }
+            if (STR) 
+                $("#jv_str").prop('checked', true);
+            }
+            if (MTR){
+                $("#jv_mtr").prop('checked', true);
+            }
+            if (LTR){
+                $("#jv_ltr").prop('checked', true);
+            }
+            if (flips){
+                $("#jv_flips").prop('checked', true);
+            }
             if (max_entry){
                 $("#max_entry").val(max_entry);
             }
