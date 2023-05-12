@@ -65,7 +65,7 @@ $(document).ready(function () {
         $("#pp_drop_embed").attr("src", picture);
         $("#header_email").html(`${email}`);
         $("#header_name").html(`${fname} ${lname}`);
-        if (array === undefined || array.length == 0) {
+        if (notifications === undefined || notifications.length == 0) {
           $('#no_notification').addClass("show")
         }
         if (subto === 'Y'){
