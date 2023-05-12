@@ -330,6 +330,7 @@ $("#settings_cancel").click(function(){
 // ---  Header JS
 // Notifications icon
 $("#header_n_circle").click(function(){
+  $('#header_drop_profile').removeClass("show");
   $('#header_notifications').addClass("show");
 });
 $('#header_notifications').mouseleave(function () {
@@ -350,7 +351,7 @@ $("#clear_notifications").click(function(){
   const ee = Cookies.get('ee');
 
   var form_input = JSON.stringify({
-    at: auth_token, ee: ee, 't':'read'
+    at: auth_token, ee: ee, 't':'clear'
   });
 
   fetch("https://w104xe3i97.execute-api.us-east-1.amazonaws.com/default/CDH_ClearNotifications",{
@@ -363,6 +364,7 @@ $("#clear_notifications").click(function(){
 
 // PP icon
 $("#header_p_circle").click(function(){
+  $('#header_notifications').removeClass("show");
 	$('#header_drop_profile').addClass("show");
 });
 $('#header_drop_profile').mouseleave(function () {
@@ -414,6 +416,11 @@ $('#settings-form').each(function (i, el) {
         if (redir) {
             // Redirect if back returned a redirect
             location.href = redir;
+        }
+        else {
+          setTimeout(function(){
+            location.href = "/app/dashboard";
+          }, 3000);
         }
     });
   });
