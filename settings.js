@@ -3,7 +3,7 @@ $(document).ready(function () {
     const auth_token = Cookies.get('at');
     const ee = Cookies.get('ee');
   
-	// Input
+	  // Input
     var form_input = JSON.stringify({
   	    at: auth_token, ee: ee, 't':'read'
     });
@@ -23,12 +23,13 @@ $(document).ready(function () {
         location.href = `/${redir}`;
         }
         console.log("no redir");
-        // Get rest oof vars
+        // Get rest of vars
         const fname = val_response["fn"];
         const lname = val_response["ln"];
-        const phone = val_response["phone"];
         const email = val_response["email"];
         const picture = val_response["pp"];
+        const notifications = val_response['notifications'];
+        const phone = val_response["phone"];
         const cover = val_response["cover"];
         const subto = val_response["st"];
         const agents = val_response["agents"];
@@ -107,43 +108,43 @@ $(document).ready(function () {
             $("#jv_section").addClass('show')
             // Populate fields
             if (ig){
-                $("#ig").val(ig);
+              $("#ig").val(ig);
             }
             if (fb){
-                $("#fb").val(fb);
+              $("#fb").val(fb);
             }
             if (yt){
-                $("#yt").val(yt);
+              $("#yt").val(yt);
             }
             if (tk){
-                $("#tk").val(tk);
+              $("#tk").val(tk);
             }
             if (bio){
-                $("#bio").val(bio);
+              $("#bio").val(bio);
             }
             if (min_cashflow){
-                $("#min_cashflow").val(min_cashflow);
+              $("#min_cashflow").val(min_cashflow);
             }
             if (wraps){
-                $("#jv_wraps").prop('checked', true);
+              $("#jv_wraps").prop('checked', true);
             }
-            if (STR) {
-                $("#jv_str").prop('checked', true);
+            if (STR){
+              $("#jv_str").prop('checked', true);
             }
             if (MTR){
-                $("#jv_mtr").prop('checked', true);
+              $("#jv_mtr").prop('checked', true);
             }
             if (LTR){
-                $("#jv_ltr").prop('checked', true);
+              $("#jv_ltr").prop('checked', true);
             }
             if (flips){
-                $("#jv_flips").prop('checked', true);
+              $("#jv_flips").prop('checked', true);
             }
             if (max_entry){
-                $("#max_entry").val(max_entry);
+              $("#max_entry").val(max_entry);
             }
             if (states){
-                $("#states").val(states);
+              $("#states").val(states);
             }
             
             // Clean help with
@@ -313,6 +314,71 @@ $("#settings_cancel").click(function(){
 	location.href = '/app/dashboard'
 });
 
+// ---  Header JS
+// Load data
+$("#pp_drop_embed").attr("src", picture);
+$("#header_email").html(`${email}`);
+$("#header_name").html(`${fname} ${lname}`);
+if (array === undefined || array.length == 0) {
+  $('#no_notification').addClass("show")
+}
+if (subto === 'Y'){
+  $("#header_subtov").addClass('show')
+} else if (subto === 'P') {
+  $("#header_subtop").addClass('show')
+}
+
+// Notifications icon
+$("#header_n_circle").click(function(){
+  $('#header_notifications').addClass("show");
+});
+$('#header_notifications').mouseleave(function () {
+  $(this).removeClass("show");
+})
+
+$("#clear_notifications").click(function(){
+  // Clear notifications from UX
+  $(".notification_element").each(function (index, element) {
+    $(element).removeClass("show");
+  });
+
+  // Show no new notifications
+  $('#no_notification').addClass("show")
+
+  // API call
+  const auth_token = Cookies.get('at');
+  const ee = Cookies.get('ee');
+
+  var form_input = JSON.stringify({
+    at: auth_token, ee: ee, 't':'read'
+  });
+
+  fetch("https://w104xe3i97.execute-api.us-east-1.amazonaws.com/default/CDH_ClearNotifications",{
+   method: 'POST',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      body: form_input,
+  })
+});
+
+
+// PP icon
+$("#header_p_circle").click(function(){
+	$('#header_drop_profile').addClass("show");
+});
+$('#header_drop_profile').mouseleave(function () {
+  $(this).removeClass("show");
+})
+$("#drop_settings").click(function(){
+	location.href = '/app/settings'
+});
+$("#drop_faq").click(function(){
+	location.href = '/app/faq'
+});
+$("#drop_logout").click(function(){
+  Cookies.set('at', '', { expires: 1 });
+  Cookies.set('ee', '', { expires: 1 });
+  location.href = '/'
+});
 
 // Save settings
 function convertFormToJSON(form) {
