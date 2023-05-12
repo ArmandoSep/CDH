@@ -61,6 +61,19 @@ $(document).ready(function () {
         const min_cashflow = val_response["min_cashflow"];
         const max_entry = val_response["max_entry"];
         
+        // Load header data
+        $("#pp_drop_embed").attr("src", picture);
+        $("#header_email").html(`${email}`);
+        $("#header_name").html(`${fname} ${lname}`);
+        if (array === undefined || array.length == 0) {
+          $('#no_notification').addClass("show")
+        }
+        if (subto === 'Y'){
+          $("#header_subtov").addClass('show')
+        } else if (subto === 'P') {
+          $("#header_subtop").addClass('show')
+        }
+
         // Set profile data
         $("#name").val(fname);
         $("#lastname").val(lname);
@@ -315,19 +328,6 @@ $("#settings_cancel").click(function(){
 });
 
 // ---  Header JS
-// Load data
-$("#pp_drop_embed").attr("src", picture);
-$("#header_email").html(`${email}`);
-$("#header_name").html(`${fname} ${lname}`);
-if (array === undefined || array.length == 0) {
-  $('#no_notification').addClass("show")
-}
-if (subto === 'Y'){
-  $("#header_subtov").addClass('show')
-} else if (subto === 'P') {
-  $("#header_subtop").addClass('show')
-}
-
 // Notifications icon
 $("#header_n_circle").click(function(){
   $('#header_notifications').addClass("show");
